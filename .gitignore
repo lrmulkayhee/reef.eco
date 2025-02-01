@@ -1,0 +1,56 @@
+# Node modules
+node_modules/
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Dependency directories
+jspm_packages/
+
+# Build directories
+dist/
+build/
+
+# IDE files
+.vscode/
+.idea/
+
+# Environment variables
+.env
+
+# MacOS files
+.DS_Store
+
+# Temporary files
+*.tmp
+*.temp
+
+# System files
+Thumbs.db
+ehthumbs.db
+
+# Coverage directory used by tools like istanbul
+coverage/
+
+# Yarn integrity file
+.yarn-integrity
+
+# Parcel-bundler cache
+.cache/
+
+# TypeScript cache
+*.tsbuildinfo
+
+# Optional npm cache directory
+.npm/
+
+# Optional eslint cache
+.eslintcache
+
+# SASS cache
+.sass-cache/
+
+# Bower dependency directory
+bower_components/
