@@ -5,7 +5,6 @@ interface AuthContextProps {
     userRole: string;
     login: (role: string) => void;
     logout: () => void;
-    hasPermission: (requiredRole: string) => boolean;
 }
 
 const AuthContext = createContext<AuthContextProps | undefined>(undefined);
@@ -28,13 +27,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         setUserRole('');
     };
 
-    const hasPermission = (requiredRole: string) => {
-        const rolesHierarchy = ['user', 'admin'];
-        return rolesHierarchy.indexOf(userRole) >= rolesHierarchy.indexOf(requiredRole);
-    };
-
     return (
-        <AuthContext.Provider value={{ isLoggedIn, userRole, login, logout, hasPermission }}>
+        <AuthContext.Provider value={{ isLoggedIn, userRole, login, logout }}>
             {children}
         </AuthContext.Provider>
     );

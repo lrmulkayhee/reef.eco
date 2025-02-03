@@ -1,20 +1,19 @@
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
-import { login } from '../services/auth';
+import { login as loginUser } from '../services/auth';
 
 const Login: React.FC = () => {
-    const { login: setAuth } = useAuth();
+    const { login } = useAuth();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
-            const response = await login(username, password);
+            const response = await loginUser(username, password);
             if (response.success) {
-                setAuth(response.role);
+                login(response.role);
             } else {
-                // Handle login error
                 console.error('Login failed:', response.message);
             }
         } catch (error) {

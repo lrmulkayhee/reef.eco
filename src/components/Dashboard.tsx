@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Metrics, { MetricsType } from './Metrics';
 import DataCollectionForm from './DataCollectionForm';
+import TimeSeriesChart from './TimeSeriesChart';
+import FilterPanel from './FilterPanel';
 import { useAuth } from '../context/AuthContext';
 import { fetchReefData, fetchMetrics, submitData } from '../services/api';
 
@@ -8,7 +10,11 @@ const Dashboard: React.FC = () => {
     const { isLoggedIn } = useAuth();
     const [metricsData, setMetricsData] = useState<MetricsType | null>(null);
     const [reefData, setReefData] = useState<any[]>([]);
-    const [widgets, setWidgets] = useState<string[]>(['metrics', 'dataForm']);
+    const [widgets, setWidgets] = useState<string[]>(['metrics', 'dataForm', 'timeSeries']);
+    const [filters, setFilters] = useState<{ dateRange: [string, string]; location: string }>({
+        dateRange: ['', ''],
+        location: '',
+    });
 
     useEffect(() => {
         if (isLoggedIn) {
@@ -31,6 +37,11 @@ const Dashboard: React.FC = () => {
         );
     };
 
+    const handleFilterChange = (newFilters: { dateRange: [string, string]; location: string }) => {
+        setFilters(newFilters);
+        // Apply filters to data fetching logic
+    };
+
     return (
         <div>
             <h1>Reef Data Dashboard</h1>
@@ -41,9 +52,12 @@ const Dashboard: React.FC = () => {
                     <div>
                         <button onClick={() => toggleWidget('metrics')}>Toggle Metrics</button>
                         <button onClick={() => toggleWidget('dataForm')}>Toggle Data Form</button>
+                        <button onClick={() => toggleWidget('timeSeries')}>Toggle Time Series</button>
                     </div>
+                    <FilterPanel onFilterChange={handleFilterChange} />
                     {widgets.includes('metrics') && metricsData && <Metrics data={metricsData} />}
                     {widgets.includes('dataForm') && <DataCollectionForm onSubmit={handleDataSubmit} />}
+                    {widgets.includes('timeSeries') && <TimeSeriesChart data={reefData} />}
                 </>
             )}
         </div>

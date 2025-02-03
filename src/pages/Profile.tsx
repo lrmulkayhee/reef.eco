@@ -10,7 +10,7 @@ const Profile: React.FC = () => {
                 const profile = await getUserProfile();
                 setUser({
                     username: profile.username,
-                    email: profile.email || '',
+                    email: profile.email || 'No email provided'
                 });
             } catch (error) {
                 console.error('Error fetching user profile:', error);
