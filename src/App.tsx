@@ -7,6 +7,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Profile from './pages/Profile';
 import Dashboard from './components/Dashboard';
+import DataCollectionPage from './pages/DataCollectionPage';
 import './styles/main.css';
 
 const App: React.FC = () => {
@@ -23,6 +24,7 @@ const App: React.FC = () => {
                             <li><a href="/register">Register</a></li>
                             <li><a href="/profile">Profile</a></li>
                             <li><a href="/dashboard">Dashboard</a></li>
+                            <li><a href="/data-collection">Data Collection</a></li> {/* Add link to Data Collection */}
                         </ul>
                     </nav>
                 </header>
@@ -35,6 +37,7 @@ const App: React.FC = () => {
                         <Route path="/register" component={Register} />
                         <Route path="/profile" component={Profile} />
                         <Route path="/dashboard" component={Dashboard} />
+                        <Route path="/data-collection" component={DataCollectionPage} /> {/* Add route for Data Collection */}
                     </Switch>
                 </main>
             </div>
