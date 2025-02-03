@@ -1,6 +1,9 @@
+import api from './api';
+
 interface User {
     id: string;
     username: string;
+    email?: string; // Add other fields as needed
 }
 
 let users: User[] = [
@@ -43,3 +46,17 @@ export const deleteUser = async (userId: string): Promise<boolean> => {
     return false;
 };
 
+// Fetch user profile from the backend API
+export const fetchUserProfile = async (): Promise<User> => {
+    const response = await api.get('/user/profile');
+    return response.data;
+};
+
+// Update user profile on the backend API
+export const updateUserProfile = async (data: Partial<User>): Promise<User> => {
+    const response = await api.put('/user/profile', data);
+    return response.data;
+};
+
+// Export getUserProfile for consistency with the import in Profile.tsx
+export const getUserProfile = fetchUserProfile;

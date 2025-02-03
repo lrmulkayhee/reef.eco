@@ -1,11 +1,10 @@
 import React from 'react';
-import { Line } from 'react-chartjs-2';
+import { Bar } from 'react-chartjs-2';
 import {
     Chart as ChartJS,
     CategoryScale,
     LinearScale,
-    PointElement,
-    LineElement,
+    BarElement,
     Title,
     Tooltip,
     Legend,
@@ -15,31 +14,24 @@ import {
 ChartJS.register(
     CategoryScale,
     LinearScale,
-    PointElement,
-    LineElement,
+    BarElement,
     Title,
     Tooltip,
     Legend
 );
 
-// Define the MetricsType interface
-export interface MetricsType {
-    labels: string[];
+interface BarChartProps {
     data: number[];
+    labels: string[];
 }
 
-interface MetricsProps {
-    data: MetricsType;
-}
-
-const Metrics: React.FC<MetricsProps> = ({ data }) => {
+const BarChart: React.FC<BarChartProps> = ({ data, labels }) => {
     const chartData = {
-        labels: data.labels,
+        labels: labels,
         datasets: [
             {
                 label: 'Coral Growth',
-                data: data.data,
-                fill: false,
+                data: data,
                 backgroundColor: 'rgb(75, 192, 192)',
                 borderColor: 'rgba(75, 192, 192, 0.2)',
             },
@@ -49,9 +41,9 @@ const Metrics: React.FC<MetricsProps> = ({ data }) => {
     return (
         <div>
             <h2>Coral Growth Over Time</h2>
-            <Line data={chartData} />
+            <Bar data={chartData} />
         </div>
     );
 };
 
-export default Metrics;
+export default BarChart;

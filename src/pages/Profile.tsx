@@ -1,43 +1,34 @@
 import React, { useEffect, useState } from 'react';
-import { getUserProfile } from '../services/api';
+import { getUserProfile } from '../services/userService';
 
 const Profile: React.FC = () => {
     const [user, setUser] = useState<{ username: string; email: string } | null>(null);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState('');
 
     useEffect(() => {
-        const fetchUserProfile = async () => {
+        const fetchProfile = async () => {
             try {
                 const profile = await getUserProfile();
-                setUser(profile);
-            } catch (err) {
-                setError('Failed to load user profile');
-            } finally {
-                setLoading(false);
+                setUser({
+                    username: profile.username,
+                    email: profile.email || '',
+                });
+            } catch (error) {
+                console.error('Error fetching user profile:', error);
             }
         };
 
-        fetchUserProfile();
+        fetchProfile();
     }, []);
 
-    if (loading) {
-        return <div>Loading...</div>;
-    }
-
-    if (error) {
-        return <div>{error}</div>;
+    if (!user) {
+        return <p>Loading...</p>;
     }
 
     return (
-        <div className="profile-page">
-            <h1>User Profile</h1>
-            {user && (
-                <div>
-                    <p><strong>Username:</strong> {user.username}</p>
-                    <p><strong>Email:</strong> {user.email}</p>
-                </div>
-            )}
+        <div>
+            <h1>Profile</h1>
+            <p>Username: {user.username}</p>
+            <p>Email: {user.email}</p>
         </div>
     );
 };

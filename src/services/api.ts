@@ -2,16 +2,14 @@ import axios from 'axios';
 
 const API_BASE_URL = 'https://api.example.com/reef-data'; // Replace with your actual API base URL
 
-export const fetchReefData = async () => {
-    try {
-        const response = await axios.get(`${API_BASE_URL}/data`);
-        return response.data;
-    } catch (error) {
-        console.error('Error fetching reef data:', error);
-        throw error;
-    }
-};
-    // Define the structure of the reef data here
+const api = axios.create({
+    baseURL: API_BASE_URL,
+    headers: {
+        'Content-Type': 'application/json',
+    },
+});
+
+// Define the structure of the reef data here
 interface ReefData {
     id: string;
     name: string;
@@ -33,37 +31,61 @@ interface Metrics {
     lastUpdated: string; // ISO date string
 }
 
-interface UserProfile {
-    id: string;
-    username: string;
-    email: string;
-    firstName: string;
-    lastName: string;
-    createdAt: string; // ISO date string
-    updatedAt: string; // ISO date string
+// Define the MetricsType interface
+export interface MetricsType {
+    labels: string[];
+    data: number[];
 }
 
-export const submitReefData = async (data: ReefData): Promise<ReefData> => {
+// Fetch reef data
+export const fetchReefData = async (): Promise<ReefData[]> => {
     try {
-        const response = await axios.post<ReefData>(`${API_BASE_URL}/data`, data);
+        const response = await api.get('/data');
         return response.data;
     } catch (error) {
-        console.error('Error submitting reef data:', error);
+        console.error('Error fetching reef data:', error);
         throw error;
     }
 };
 
-export const fetchMetrics = async () => {
+// Fetch metrics
+export const fetchMetrics = async (): Promise<MetricsType> => {
     try {
-        const response = await axios.get(`${API_BASE_URL}/metrics`);
-        return response.data;
+        const response = await api.get('/metrics');
+        const metrics: Metrics = response.data;
+
+        // Transform the metrics data to match the MetricsType interface
+        const metricsData: MetricsType = {
+            labels: ['Total Reefs', 'Average Coral Coverage', 'Average Water Temperature', 'Total Fish Species'],
+            data: [
+                metrics.totalReefs,
+                metrics.averageCoralCoverage,
+                metrics.averageWaterTemperature,
+                metrics.totalFishSpecies,
+            ],
+        };
+
+        return metricsData;
     } catch (error) {
         console.error('Error fetching metrics:', error);
         throw error;
     }
 };
 
-export const getUserProfile = async () => {
-    const response = await axios.get('/api/user/profile');
-    return response.data;
+// Submit new reef data
+interface DataSubmission {
+    coralSize: string;
+    healthStatus: string;
+}
+
+export const submitData = async (data: DataSubmission) => {
+    try {
+        const response = await api.post('/data/submit', data);
+        return response.data;
+    } catch (error) {
+        console.error('Error submitting data:', error);
+        throw error;
+    }
 };
+
+export default api;

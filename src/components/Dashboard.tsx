@@ -1,15 +1,34 @@
-import React, { useState } from 'react';
-import Metrics from './Metrics';
+import React, { useState, useEffect } from 'react';
+import Metrics, { MetricsType } from './Metrics';
 import DataCollectionForm from './DataCollectionForm';
+import { useAuth } from '../context/AuthContext';
+import { fetchReefData, fetchMetrics, submitData } from '../services/api';
 
 const Dashboard: React.FC = () => {
-    const [isLoggedIn, setIsLoggedIn] = useState(false); // Replace with actual authentication logic
-    const [metricsData, setMetricsData] = useState<number[] | null>(null); // Replace with actual data fetching logic
+    const { isLoggedIn } = useAuth();
+    const [metricsData, setMetricsData] = useState<MetricsType | null>(null);
+    const [reefData, setReefData] = useState<any[]>([]);
+    const [widgets, setWidgets] = useState<string[]>(['metrics', 'dataForm']);
 
-    const handleDataSubmit = (data: { coralSize: string; healthStatus: string }) => {
-        console.log('Data submitted:', data);
-        // Update metrics data here
-        setMetricsData([65, 59, 80, 81, 56, 55, 40]); // Example data
+    useEffect(() => {
+        if (isLoggedIn) {
+            fetchMetrics().then(data => setMetricsData(data));
+            fetchReefData().then(data => setReefData(data));
+        }
+    }, [isLoggedIn]);
+
+    const handleDataSubmit = async (data: { coralSize: string; healthStatus: string }) => {
+        const response = await submitData(data);
+        console.log('Data submitted:', response);
+        setMetricsData(response.metrics); // Assuming the response contains updated metrics
+    };
+
+    const toggleWidget = (widget: string) => {
+        setWidgets(prevWidgets =>
+            prevWidgets.includes(widget)
+                ? prevWidgets.filter(w => w !== widget)
+                : [...prevWidgets, widget]
+        );
     };
 
     return (
@@ -17,12 +36,14 @@ const Dashboard: React.FC = () => {
             <h1>Reef Data Dashboard</h1>
             {!isLoggedIn ? (
                 <p>Please log in to view the dashboard.</p>
-            ) : !metricsData ? (
-                <p>No metrics data available.</p>
             ) : (
                 <>
-                    <Metrics data={metricsData} />
-                    <DataCollectionForm onSubmit={handleDataSubmit} />
+                    <div>
+                        <button onClick={() => toggleWidget('metrics')}>Toggle Metrics</button>
+                        <button onClick={() => toggleWidget('dataForm')}>Toggle Data Form</button>
+                    </div>
+                    {widgets.includes('metrics') && metricsData && <Metrics data={metricsData} />}
+                    {widgets.includes('dataForm') && <DataCollectionForm onSubmit={handleDataSubmit} />}
                 </>
             )}
         </div>

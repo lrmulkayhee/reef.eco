@@ -1,16 +1,39 @@
-import React from 'react';
-import LoginForm from '../components/LoginForm';
+import React, { useState } from 'react';
+import { useAuth } from '../context/AuthContext';
+import { login } from '../services/auth';
 
 const Login: React.FC = () => {
-    const handleLoginSubmit = (data: { username: string; password: string }) => {
-        console.log('Login submitted:', data);
+    const { login: setAuth } = useAuth();
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        try {
+            const response = await login(username, password);
+            if (response.success) {
+                setAuth(response.role);
+            } else {
+                // Handle login error
+                console.error('Login failed:', response.message);
+            }
+        } catch (error) {
+            console.error('Error during login:', error);
+        }
     };
 
     return (
-        <div className="login-page">
-            <h1>Login</h1>
-            <LoginForm onSubmit={handleLoginSubmit} />
-        </div>
+        <form onSubmit={handleSubmit}>
+            <label>
+                Username:
+                <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
+            </label>
+            <label>
+                Password:
+                <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+            </label>
+            <button type="submit">Login</button>
+        </form>
     );
 };
 
