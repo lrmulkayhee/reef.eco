@@ -1,4 +1,6 @@
 import React from 'react';
+import './Home.css';
+
 
 const Home: React.FC = () => {
     return (
@@ -21,3 +23,5 @@ const Home: React.FC = () => {
 };
 
 export default Home;
+
+

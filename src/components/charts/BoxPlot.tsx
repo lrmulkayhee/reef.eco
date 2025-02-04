@@ -26,10 +26,24 @@ const BoxPlot: React.FC<BoxPlotProps> = ({ data }) => {
         ],
     };
 
+    const options = {
+        responsive: true,
+        plugins: {
+            tooltip: {
+                callbacks: {
+                    label: (context: any) => {
+                        const value = context.raw;
+                        return `Min: ${value.min}, Q1: ${value.q1}, Median: ${value.median}, Q3: ${value.q3}, Max: ${value.max}`;
+                    },
+                },
+            },
+        },
+    };
+
     return (
         <div>
             <h2>Box Plot</h2>
-            <Chart type="boxplot" data={chartData} />
+            <Chart type="boxplot" data={chartData} options={options} />
         </div>
     );
 };

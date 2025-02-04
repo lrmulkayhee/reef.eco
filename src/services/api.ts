@@ -104,4 +104,26 @@ export const submitData = async (data: DataSubmission) => {
     }
 };
 
+// Update reef data
+export const updateReefData = async (id: string, data: Partial<ReefData>) => {
+    try {
+        const response = await api.put(`/data/${id}`, data);
+        return response.data;
+    } catch (error) {
+        console.error('Error updating reef data:', error);
+        throw error;
+    }
+};
+
+// Delete reef data
+export const deleteReefData = async (id: string) => {
+    try {
+        const response = await api.delete(`/data/${id}`);
+        return response.data;
+    } catch (error) {
+        console.error('Error deleting reef data:', error);
+        throw error;
+    }
+};
+
 export default api;

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Metrics, { MetricsType } from './Metrics';
 import DataCollectionForm from './DataCollectionForm';
 import TimeSeriesChart from './TimeSeriesChart';
@@ -37,24 +37,24 @@ const Dashboard: React.FC = () => {
         }
     }, [isLoggedIn]);
 
-    const handleDataSubmit = async (data: { coralSize: string; healthStatus: string }) => {
+    const handleDataSubmit = useCallback(async (data: { coralSize: string; healthStatus: string }) => {
         const response = await submitData(data);
         console.log('Data submitted:', response);
         setMetricsData(response.metrics); // Assuming the response contains updated metrics
-    };
+    }, []);
 
-    const toggleWidget = (widget: string) => {
+    const toggleWidget = useCallback((widget: string) => {
         setWidgets(prevWidgets =>
             prevWidgets.includes(widget)
                 ? prevWidgets.filter(w => w !== widget)
                 : [...prevWidgets, widget]
         );
-    };
+    }, []);
 
-    const handleFilterChange = (newFilters: { dateRange: [string, string]; location: string }) => {
+    const handleFilterChange = useCallback((newFilters: { dateRange: [string, string]; location: string }) => {
         setFilters(newFilters);
         // Apply filters to data fetching logic
-    };
+    }, []);
 
     return (
         <div>
