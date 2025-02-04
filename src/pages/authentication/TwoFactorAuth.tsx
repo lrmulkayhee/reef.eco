@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { useAuth } from '../context/AuthContext';
-import { verifyTwoFactorCode } from '../services/auth';
+import { useAuth } from '../../context/AuthContext';
+import { verifyTwoFactorCode } from '../../services/auth';
 
 const TwoFactorAuth: React.FC = () => {
     const { login } = useAuth();

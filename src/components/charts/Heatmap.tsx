@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import L from 'leaflet';
-import 'leaflet.heat';
+
 declare module 'leaflet' {
     function heatLayer(data: any[], options?: any): any;
 }
@@ -9,7 +9,7 @@ interface HeatmapProps {
     data: { lat: number; lng: number; intensity: number }[];
 }
 
-const Heatmap: React.FC<HeatmapProps> = ({ data }) => {
+const Heatmap: React.FunctionComponent<HeatmapProps> = ({ data }) => {
     useEffect(() => {
         const map = L.map('map').setView([0, 0], 2);
 

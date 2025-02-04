@@ -1,13 +1,18 @@
+// filepath: /c:/Users/lmulcah1/Downloads/reef.eco/src/index.tsx
 import React from 'react';
-import { createRoot } from 'react-dom/client';
+import ReactDOM from 'react-dom/client';
 import App from './App';
+import { AuthProvider } from './context/AuthContext';
+import { NotificationProvider } from './context/NotificationContext';
 import './styles/main.css';
 
-const container = document.getElementById('root');
-const root = createRoot(container!);
-
+const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
     <React.StrictMode>
-        <App />
+        <AuthProvider>
+            <NotificationProvider>
+                <App />
+            </NotificationProvider>
+        </AuthProvider>
     </React.StrictMode>
 );

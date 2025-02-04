@@ -1,6 +1,5 @@
 import React from 'react';
 import { Chart } from 'react-chartjs-2';
-import 'chartjs-chart-box-and-violin-plot';
 
 declare module 'chart.js' {
     interface ChartTypeRegistry {

@@ -1,7 +1,7 @@
 import React from 'react';
 import '../styles/components/Footer.css';
 
-const Footer: React.FC = () => {
+const Footer: React.FunctionComponent = () => {
     return (
         <footer className="footer">
             <p>&copy; {new Date().getFullYear()} Reef Data Toolkit. All rights reserved.</p>

@@ -3,7 +3,10 @@ import api from './api';
 interface User {
     id: string;
     username: string;
-    email?: string; // Add other fields as needed
+    email?: string;
+    language?: string;
+    organization?: string;
+    theme?: string;
 }
 
 let users: User[] = [

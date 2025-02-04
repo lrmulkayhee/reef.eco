@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState } from 'react';
+import { ReactNode } from 'react';
 
 interface AuthContextProps {
     isLoggedIn: boolean;
@@ -7,13 +8,13 @@ interface AuthContextProps {
     logout: () => void;
 }
 
-const AuthContext = createContext<AuthContextProps | undefined>(undefined);
+const AuthContext = createContext<AuthContextProps | null>(null);
 
 interface AuthProviderProps {
     children: React.ReactNode;
 }
 
-export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
+export const AuthProvider: React.FC<AuthProviderProps> = ({ children }): JSX.Element => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [userRole, setUserRole] = useState('');
 

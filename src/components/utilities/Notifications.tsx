@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
+import { useNotification } from '../../context/NotificationContext';
 
 interface Notification {
     id: string;
@@ -10,7 +11,7 @@ interface NotificationsProps {
     notifications: Notification[];
 }
 
-const Notifications: React.FC<NotificationsProps> = ({ notifications }) => {
+const Notifications: React.FC<NotificationsProps> = ({ notifications }): JSX.Element => {
     return (
         <div>
             <h3>Notifications</h3>

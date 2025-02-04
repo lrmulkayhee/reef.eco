@@ -1,12 +1,7 @@
 import React from 'react';
-import './Home.css';
-import Button from '../components/Button';
+import '../styles/pages/Home.css';
 
 const Home: React.FC = () => {
-    const handleLearnMoreClick = () => {
-        alert('Learn more about the Reef Data Toolkit!');
-    };
-
     return (
         <div className="home">
             <h1>Welcome to the Reef Data Toolkit</h1>
@@ -24,7 +19,6 @@ const Home: React.FC = () => {
             <p>
                 Join us in our mission to protect and restore coral reefs!
             </p>
-            <Button label="Learn More" onClick={handleLearnMoreClick} className="primary" />
         </div>
     );
 };

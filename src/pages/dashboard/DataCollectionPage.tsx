@@ -1,5 +1,5 @@
 import React from 'react';
-import DataCollectionForm from '../components/DataCollectionForm';
+import DataCollectionForm from '../../components/forms/DataCollectionForm';
 
 const DataCollectionPage: React.FC = () => {
     const handleDataSubmit = (data: { coralSize: string; healthStatus: string }) => {

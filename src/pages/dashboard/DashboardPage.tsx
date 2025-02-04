@@ -1,7 +1,7 @@
 import React from 'react';
-import Dashboard from '../components/Dashboard';
+import Dashboard from '../../components/Dashboard';
 
-const DashboardPage: React.FC = () => {
+const DashboardPage: React.FC = (): React.ReactElement => {
     return (
         <div>
             <h1>Dashboard Page</h1>

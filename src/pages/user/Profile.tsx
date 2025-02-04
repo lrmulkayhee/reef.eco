@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { getUserProfile } from '../../services/userService';
 import '../../styles/pages/Profile.css';
 
-const Profile: React.FC = () => {
+const Profile: React.FC<{}> = () => {
     const [user, setUser] = useState<{ username: string; email: string; organization?: string; language?: string; theme?: string } | null>(null);
 
     useEffect(() => {
