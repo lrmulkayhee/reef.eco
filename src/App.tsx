@@ -27,6 +27,7 @@ import DataStorage from './components/dataManagement/DataStorage';
 import MetadataDocumentation from './components/metadata/MetadataDocumentation';
 import DataArchiving from './components/dataManagement/DataArchiving';
 import MetadataGeneration from './components/metadata/MetadataGeneration';
+import PrivacyPolicy from './pages/PrivacyPolicy';
 
 const App: React.FC = () => {
     return (
@@ -59,6 +60,7 @@ const App: React.FC = () => {
                     <Route path="/metadata-documentation" component={MetadataDocumentation} />
                     <Route path="/data-archiving" component={DataArchiving} />
                     <Route path="/metadata-generation" component={MetadataGeneration} />
+                    <Route path="/privacy-policy" component={PrivacyPolicy} />
                 </Switch>
             </div>
             <Footer />
