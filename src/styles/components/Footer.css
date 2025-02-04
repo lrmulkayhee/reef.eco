@@ -1,0 +1,28 @@
+.footer {
+    background-color: #343a40;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}
+
+.footer p {
+    margin: 0;
+    font-size: 14px;
+}
+
+.footer nav {
+    margin-top: 10px;
+}
+
+.footer nav a {
+    color: white;
+    margin: 0 10px;
+    text-decoration: none;
+}
+
+.footer nav a:hover {
+    text-decoration: underline;
+}

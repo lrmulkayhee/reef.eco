@@ -1,9 +1,36 @@
-.home-container {
+.home {
     padding: 20px;
     background-color: #f8f9fa;
+    text-align: center;
 }
 
-.home-title {
+.home h1 {
+    font-size: 36px;
+    color: #343a40;
+}
+
+.home p {
+    font-size: 18px;
+    color: #6c757d;
+}
+
+.home h2 {
     font-size: 24px;
     color: #343a40;
+    margin-top: 20px;
+}
+
+.home ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.home ul li {
+    font-size: 18px;
+    color: #6c757d;
+    margin: 10px 0;
+}
+
+.home button {
+    margin-top: 20px;
 }

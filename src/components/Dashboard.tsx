@@ -17,6 +17,7 @@ import Heatmap from './Heatmap';
 import ChoroplethMap from './ChoroplethMap';
 import { useAuth } from '../context/AuthContext';
 import { fetchReefData, fetchMetrics, submitData } from '../services/api';
+import './Dashboard.css';
 
 const Dashboard: React.FC = () => {
     const { isLoggedIn } = useAuth();
@@ -57,13 +58,13 @@ const Dashboard: React.FC = () => {
     }, []);
 
     return (
-        <div>
+        <div className="dashboard-container">
             <h1>Reef Data Dashboard</h1>
             {!isLoggedIn ? (
                 <p>Please log in to view the dashboard.</p>
             ) : (
                 <>
-                    <div>
+                    <div className="dashboard-controls">
                         <button onClick={() => toggleWidget('metrics')}>Toggle Metrics</button>
                         <button onClick={() => toggleWidget('dataForm')}>Toggle Data Form</button>
                         <button onClick={() => toggleWidget('timeSeries')}>Toggle Time Series</button>
@@ -81,29 +82,31 @@ const Dashboard: React.FC = () => {
                         <button onClick={() => toggleWidget('choroplethMap')}>Toggle Choropleth Map</button>
                     </div>
                     <FilterPanel onFilterChange={handleFilterChange} />
-                    {widgets.includes('metrics') && metricsData && <Metrics data={metricsData} />}
-                    {widgets.includes('dataForm') && <DataCollectionForm onSubmit={handleDataSubmit} />}
-                    {widgets.includes('timeSeries') && <TimeSeriesChart data={reefData} />}
-                    {widgets.includes('statistics') && metricsData && (
-                        <Statistics
-                            totalFishSpecies={metricsData.totalFishSpecies}
-                            averageCoralCoverage={metricsData.averageCoralCoverage}
-                            averageWaterTemperature={metricsData.averageWaterTemperature}
-                            labels={metricsData.labels}
-                            data={metricsData.data}
-                        />
-                    )}
-                    {widgets.includes('map') && <MapView locations={reefData.map(d => ({ lat: d.lat, lng: d.lng, name: d.name }))} />}
-                    {widgets.includes('pieChart') && metricsData && <PieChart data={{ labels: metricsData.labels, values: metricsData.data }} />}
-                    {widgets.includes('scatterPlot') && <ScatterPlot data={reefData.map(d => ({ x: d.lat, y: d.lng }))} />}
-                    {widgets.includes('radarChart') && metricsData && <RadarChart data={{ labels: metricsData.labels, values: metricsData.data }} />}
-                    {widgets.includes('bubbleChart') && <BubbleChart data={reefData.map(d => ({ x: d.lat, y: d.lng, r: d.coralSize }))} />}
-                    {widgets.includes('doughnutChart') && metricsData && <DoughnutChart data={{ labels: metricsData.labels, values: metricsData.data }} />}
-                    {widgets.includes('lineChart') && metricsData && <LineChart data={{ labels: metricsData.labels, values: metricsData.data }} />}
-                    {widgets.includes('histogram') && metricsData && <Histogram data={{ labels: metricsData.labels, values: metricsData.data }} />}
-                    {widgets.includes('boxPlot') && metricsData && <BoxPlot data={{ labels: metricsData.labels, values: metricsData.data.map(value => [value]) }} />}
-                    {widgets.includes('heatmap') && <Heatmap data={reefData.map(d => ({ lat: d.lat, lng: d.lng, intensity: d.coralSize }))} />}
-                    {widgets.includes('choroplethMap') && <ChoroplethMap regions={reefData.map(d => ({ name: d.name, coordinates: [[d.lat, d.lng]], value: d.coralSize }))} />}
+                    <div className="dashboard-widgets">
+                        {widgets.includes('metrics') && metricsData && <Metrics data={metricsData} />}
+                        {widgets.includes('dataForm') && <DataCollectionForm onSubmit={handleDataSubmit} />}
+                        {widgets.includes('timeSeries') && <TimeSeriesChart data={reefData} />}
+                        {widgets.includes('statistics') && metricsData && (
+                            <Statistics
+                                totalFishSpecies={metricsData.totalFishSpecies}
+                                averageCoralCoverage={metricsData.averageCoralCoverage}
+                                averageWaterTemperature={metricsData.averageWaterTemperature}
+                                labels={metricsData.labels}
+                                data={metricsData.data}
+                            />
+                        )}
+                        {widgets.includes('map') && <MapView locations={reefData.map(d => ({ lat: d.lat, lng: d.lng, name: d.name }))} />}
+                        {widgets.includes('pieChart') && metricsData && <PieChart data={{ labels: metricsData.labels, values: metricsData.data }} />}
+                        {widgets.includes('scatterPlot') && <ScatterPlot data={reefData.map(d => ({ x: d.lat, y: d.lng }))} />}
+                        {widgets.includes('radarChart') && metricsData && <RadarChart data={{ labels: metricsData.labels, values: metricsData.data }} />}
+                        {widgets.includes('bubbleChart') && <BubbleChart data={reefData.map(d => ({ x: d.lat, y: d.lng, r: d.coralSize }))} />}
+                        {widgets.includes('doughnutChart') && metricsData && <DoughnutChart data={{ labels: metricsData.labels, values: metricsData.data }} />}
+                        {widgets.includes('lineChart') && metricsData && <LineChart data={{ labels: metricsData.labels, values: metricsData.data }} />}
+                        {widgets.includes('histogram') && metricsData && <Histogram data={{ labels: metricsData.labels, values: metricsData.data }} />}
+                        {widgets.includes('boxPlot') && metricsData && <BoxPlot data={{ labels: metricsData.labels, values: metricsData.data.map(value => [value]) }} />}
+                        {widgets.includes('heatmap') && <Heatmap data={reefData.map(d => ({ lat: d.lat, lng: d.lng, intensity: d.coralSize }))} />}
+                        {widgets.includes('choroplethMap') && <ChoroplethMap regions={reefData.map(d => ({ name: d.name, coordinates: [[d.lat, d.lng]], value: d.coralSize }))} />}
+                    </div>
                 </>
             )}
         </div>
