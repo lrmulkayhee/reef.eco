@@ -22,25 +22,17 @@ ChartJS.register(
     Legend
 );
 
-export type MetricsType = {
-    totalFishSpecies: number;
-    averageCoralCoverage: number;
-    averageWaterTemperature: number;
-    labels: string[];
-    data: number[];
-};
-
-interface MetricsProps {
-    data: MetricsType;
+interface LineChartProps {
+    data: { labels: string[]; values: number[] };
 }
 
-const Metrics: React.FC<MetricsProps> = ({ data }) => {
+const LineChart: React.FC<LineChartProps> = ({ data }) => {
     const chartData = {
         labels: data.labels,
         datasets: [
             {
-                label: 'Coral Growth',
-                data: data.data,
+                label: 'Value Over Time',
+                data: data.values,
                 fill: false,
                 backgroundColor: 'rgb(75, 192, 192)',
                 borderColor: 'rgba(75, 192, 192, 0.2)',
@@ -50,10 +42,10 @@ const Metrics: React.FC<MetricsProps> = ({ data }) => {
 
     return (
         <div>
-            <h2>Coral Growth Over Time</h2>
+            <h2>Line Chart</h2>
             <Line data={chartData} />
         </div>
     );
 };
 
-export default Metrics;
+export default LineChart;

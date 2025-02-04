@@ -1,11 +1,16 @@
 import React from 'react';
 import { CSVLink } from 'react-csv';
 
-const DataExport: React.FC<{ data: any[] }> = ({ data }) => {
+interface ExportDataProps {
+    data: any[];
+}
+
+const DataExport: React.FC<ExportDataProps> = ({ data }) => {
     const headers = [
         { label: 'Coral Size', key: 'coralSize' },
         { label: 'Health Status', key: 'healthStatus' },
-        // Add more headers as needed
+        { label: 'Location', key: 'location' },
+        { label: 'Date', key: 'date' },
     ];
 
     return (

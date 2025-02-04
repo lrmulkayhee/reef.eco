@@ -32,9 +32,21 @@ interface Metrics {
 }
 
 // Define the MetricsType interface
+
 export interface MetricsType {
+
+    averageCoralCoverage: number;
+
+    averageWaterTemperature: number;
+
+    totalFishSpecies: number;
+
+    totalReefs: number; // Added totalReefs property
+
     labels: string[];
+
     data: number[];
+
 }
 
 // Fetch reef data
@@ -56,6 +68,10 @@ export const fetchMetrics = async (): Promise<MetricsType> => {
 
         // Transform the metrics data to match the MetricsType interface
         const metricsData: MetricsType = {
+            averageCoralCoverage: metrics.averageCoralCoverage,
+            averageWaterTemperature: metrics.averageWaterTemperature,
+            totalFishSpecies: metrics.totalFishSpecies,
+            totalReefs: metrics.totalReefs,
             labels: ['Total Reefs', 'Average Coral Coverage', 'Average Water Temperature', 'Total Fish Species'],
             data: [
                 metrics.totalReefs,

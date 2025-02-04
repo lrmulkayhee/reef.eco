@@ -10,9 +10,10 @@ interface Comment {
 interface CommentsProps {
     comments: Comment[];
     onAddComment: (text: string) => void;
+    title?: string; // Optional title for the comments section
 }
 
-const Comments: React.FC<CommentsProps> = ({ comments, onAddComment }) => {
+const Comments: React.FC<CommentsProps> = ({ comments, onAddComment, title = 'Comments' }) => {
     const [newComment, setNewComment] = useState('');
 
     const handleAddComment = () => {
@@ -22,7 +23,7 @@ const Comments: React.FC<CommentsProps> = ({ comments, onAddComment }) => {
 
     return (
         <div>
-            <h3>Comments</h3>
+            <h3>{title}</h3>
             <ul>
                 {comments.map(comment => (
                     <li key={comment.id}>

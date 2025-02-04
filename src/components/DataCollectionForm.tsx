@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
 
 interface DataCollectionFormProps {
-    onSubmit: (data: { coralSize: string; healthStatus: string }) => void;
+    onSubmit: (data: { coralSize: string; healthStatus: string; location: string; date: string }) => void;
 }
 
 const DataCollectionForm: React.FC<DataCollectionFormProps> = ({ onSubmit }) => {
     const [data, setData] = useState({
         coralSize: '',
-        healthStatus: ''
+        healthStatus: '',
+        location: '',
+        date: ''
     });
-    const [submitted, setSubmitted] = useState(false);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
@@ -21,28 +22,29 @@ const DataCollectionForm: React.FC<DataCollectionFormProps> = ({ onSubmit }) => 
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        onSubmit({
-            coralSize: data.coralSize,
-            healthStatus: data.healthStatus
-        });
-        setSubmitted(true);
+        onSubmit(data);
     };
 
     return (
-        <div>
-            <form onSubmit={handleSubmit}>
-                <label>
-                    Coral Size:
-                    <input type="text" name="coralSize" value={data.coralSize} onChange={handleChange} />
-                </label>
-                <label>
-                    Health Status:
-                    <input type="text" name="healthStatus" value={data.healthStatus} onChange={handleChange} />
-                </label>
-                <button type="submit">Submit Data</button>
-            </form>
-            {submitted && <p>Data submitted successfully</p>}
-        </div>
+        <form onSubmit={handleSubmit}>
+            <label>
+                Coral Size:
+                <input type="text" name="coralSize" value={data.coralSize} onChange={handleChange} />
+            </label>
+            <label>
+                Health Status:
+                <input type="text" name="healthStatus" value={data.healthStatus} onChange={handleChange} />
+            </label>
+            <label>
+                Location:
+                <input type="text" name="location" value={data.location} onChange={handleChange} />
+            </label>
+            <label>
+                Date:
+                <input type="date" name="date" value={data.date} onChange={handleChange} />
+            </label>
+            <button type="submit">Submit Data</button>
+        </form>
     );
 };
 
